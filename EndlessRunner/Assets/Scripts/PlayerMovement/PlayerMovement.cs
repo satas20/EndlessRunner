@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         direciton.z = forwardSpeed;
         //getting inputs for lane 
-        if (Input.GetKeyDown(KeyCode.RightArrow)) 
+        if (SwipeManager.swipeRight) 
         {
             desiraedLane++;
             if (desiraedLane == 3) 
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (SwipeManager.swipeLeft)
         {
             desiraedLane--;
             if (desiraedLane == -1)
