@@ -7,19 +7,27 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Vector3 direciton;
     public float forwardSpeed;
+    public float maxSpeed;
 
+    private bool hasDino;
     private int desiraedLane = 1;
     public float laneDistance = 4; //diffrance btwen lanes
     void Start()
     {
         controller = GetComponent<CharacterController>();
-       
+        hasDino = false;
     }
 
    
     void Update()
     {
+        if (!PlayerManager.gameStarted) { return; }
         direciton.z = forwardSpeed;
+
+        if (forwardSpeed < maxSpeed) {
+        forwardSpeed +=(float) 0.1* Time.deltaTime;
+        }
+
         //getting inputs for lane 
         if (SwipeManager.swipeRight) 
         {
@@ -51,5 +59,59 @@ public class PlayerMovement : MonoBehaviour
         //moving to desiredlane
         transform.position = Vector3.Lerp(transform.position, targetPosition,10*Time.fixedDeltaTime);
     }
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("collisino detected tag " + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Dino"))
+        {
+            hasDino = true;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            if (!hasDino)
+            {
+                PlayerManager.gameOver = true;
+            }
+            else
+            {
+                hasDino = false;
+                Destroy(collision.gameObject);
+            }
+
+        }
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            PlayerManager.coinCount++;
+            Destroy(collision.gameObject);
+        }
+    }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Dino"))
+        {
+            hasDino = true;
+            Destroy(hit.gameObject);
+        }
+        if (hit.gameObject.CompareTag("Obstacle"))
+        {
+            if (!hasDino)
+            {
+                PlayerManager.gameOver = true;
+            }
+            else
+            {
+                hasDino = false;
+                Destroy(hit.gameObject);
+            }
+
+        }
+        if (hit.gameObject.CompareTag("Coin"))
+        {
+            PlayerManager.coinCount++;
+            Destroy(hit.gameObject);
+        }
+    }
+    
 }

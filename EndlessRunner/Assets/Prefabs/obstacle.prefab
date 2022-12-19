@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6575579931559031813}
   - component: {fileID: 6575579931559031812}
   m_Layer: 0
-  m_Name: Obstcale
-  m_TagString: Obstcale
+  m_Name: obstacle
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

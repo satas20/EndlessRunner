@@ -33,7 +33,7 @@ public class TileManager : MonoBehaviour
     {
 
         int random = Random.Range(0,tilePrefabs.Length);
-        Debug.Log("random :" + random);
+        //Debug.Log("random :" + random);
         GameObject spawnedTile =Instantiate(tilePrefabs[random], transform.forward * zSpawn, transform.rotation);
         activeTiles.Add(spawnedTile);
         zSpawn += tileLenght;
