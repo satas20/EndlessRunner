@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!PlayerManager.gameStarted) { return; }
+        
         direciton.z = forwardSpeed;
-
+        
         if (forwardSpeed < maxSpeed) {
         forwardSpeed +=(float) 0.1* Time.deltaTime;
         }
@@ -59,9 +60,10 @@ public class PlayerMovement : MonoBehaviour
         //moving to desiredlane
         transform.position = Vector3.Lerp(transform.position, targetPosition,10*Time.fixedDeltaTime);
     }
-    private void OnCollisionEnter(Collision collision)
+    
+    private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("collisino detected tag " + collision.gameObject.tag);
+        
         if (collision.gameObject.CompareTag("Dino"))
         {
             hasDino = true;
@@ -86,7 +88,8 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-    
+
+    /*
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.CompareTag("Dino"))
@@ -113,5 +116,5 @@ public class PlayerMovement : MonoBehaviour
             Destroy(hit.gameObject);
         }
     }
-    
+    */
 }

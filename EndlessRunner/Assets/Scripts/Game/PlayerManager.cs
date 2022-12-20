@@ -35,7 +35,8 @@ public class PlayerManager : MonoBehaviour
             gameStarted = true;
             Destroy(startGameText);
         }
-        timeCount += (Time.deltaTime);
+        if (gameStarted&&!gameOver) { timeCount += (Time.deltaTime); }
+        
 
         timeText.text =  (timeCount).ToString("0");
         coinText.text = coinCount.ToString();
