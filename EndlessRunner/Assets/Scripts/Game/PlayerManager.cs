@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] TMP_Text timeText;
     [SerializeField] TMP_Text scoreText;
 
+
     public static bool gameOver;
     public static bool gameStarted;
 

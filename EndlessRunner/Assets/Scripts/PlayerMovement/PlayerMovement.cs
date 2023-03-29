@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject magnet;
     private CharacterController controller;
     private Vector3 direciton;
     public float forwardSpeed;
     public float maxSpeed;
+
+    public float jumpForce;
+    public float gravity =-20f;
 
     private bool hasDino;
     private int desiraedLane = 1;
@@ -18,22 +22,24 @@ public class PlayerMovement : MonoBehaviour
         hasDino = false;
     }
 
-   
+
     void Update()
     {
         if (!PlayerManager.gameStarted) { return; }
-        
+        if (controller.isGrounded!)
+        {direciton.y += gravity * Time.deltaTime;}
+
+        direciton.y += gravity * Time.deltaTime;
         direciton.z = forwardSpeed;
-        
         if (forwardSpeed < maxSpeed) {
-        forwardSpeed +=(float) 0.1* Time.deltaTime;
+            forwardSpeed += (float)0.1 * Time.deltaTime;
         }
 
         //getting inputs for lane 
-        if (SwipeManager.swipeRight) 
+        if (SwipeManager.swipeRight)
         {
             desiraedLane++;
-            if (desiraedLane == 3) 
+            if (desiraedLane == 3)
             {
                 desiraedLane = 2;
             }
@@ -47,9 +53,13 @@ public class PlayerMovement : MonoBehaviour
                 desiraedLane = 0;
             }
         }
+        if (SwipeManager.swipeUp && controller.isGrounded)
+        {
+            Jump();
+        }
         //calculating LanePosition
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
-        if (desiraedLane == 0){
+        if (desiraedLane == 0) {
             targetPosition += Vector3.left * laneDistance;
         }
         if (desiraedLane == 2)
@@ -58,15 +68,24 @@ public class PlayerMovement : MonoBehaviour
         }
         controller.Move(direciton * Time.deltaTime);
         //moving to desiredlane
-        transform.position = Vector3.Lerp(transform.position, targetPosition,10*Time.fixedDeltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 10 * Time.fixedDeltaTime);
     }
-    
+    private void Jump()
+    {
+        direciton.y = jumpForce;
+    }
     private void OnTriggerEnter(Collider collision)
     {
         
-        if (collision.gameObject.CompareTag("Dino"))
+        if (collision.gameObject.CompareTag("Shield"))
         {
             hasDino = true;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Magnet"))
+        {
+            magnet.SetActive(true);
+            magnet.GetComponent<CoinAtractor>().magnetTimer = magnet.GetComponent<CoinAtractor>().magnetDuration;
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("Obstacle"))

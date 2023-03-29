@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Coin
   - Dino
+  - Shield
+  - Magnet
   layers:
   - Default
   - TransparentFX
