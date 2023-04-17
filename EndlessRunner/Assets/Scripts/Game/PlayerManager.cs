@@ -49,4 +49,5 @@ public class PlayerManager : MonoBehaviour
             gameOverPanel.SetActive(true);
         }
     }
+    
 }

@@ -9,6 +9,7 @@ TagManager:
   - Dino
   - Shield
   - Magnet
+  - Mushroom
   layers:
   - Default
   - TransparentFX

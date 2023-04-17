@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed;
 
     public float jumpForce;
+    public float mushroomForce;
+
     public float gravity =-20f;
 
     private bool hasDino;
@@ -81,6 +83,10 @@ public class PlayerMovement : MonoBehaviour
         {
             hasDino = true;
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Mushroom"))
+        {
+            direciton.y = mushroomForce;
         }
         if (collision.gameObject.CompareTag("Magnet"))
         {
