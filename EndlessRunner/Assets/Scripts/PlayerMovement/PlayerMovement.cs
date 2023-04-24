@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform groundCheckPos;
+    private bool isGrounded; 
+    public LayerMask groundLayer;
+
     public GameObject magnet;
     private CharacterController controller;
     private Vector3 direciton;
     public float forwardSpeed;
     public float maxSpeed;
-
+    public  Animator animator;
     public float jumpForce;
     public float mushroomForce;
 
@@ -55,9 +59,16 @@ public class PlayerMovement : MonoBehaviour
                 desiraedLane = 0;
             }
         }
+        isGrounded = Physics.CheckSphere(groundCheckPos.position,0.15f, groundLayer);
+        animator.SetBool("isGrounded",controller.isGrounded);
         if (SwipeManager.swipeUp && controller.isGrounded)
         {
             Jump();
+        }
+        if (SwipeManager.swipeDown)
+        {
+            StartCoroutine(Slide());
+
         }
         //calculating LanePosition
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
@@ -75,6 +86,17 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         direciton.y = jumpForce;
+    }
+    private IEnumerator Slide()
+    {
+        direciton.y = -jumpForce;
+        controller.height = 1;
+        controller.center = new Vector3(0, -0.5f, 0);
+        animator.SetBool("isSliding", true);
+        yield return new WaitForSeconds(1.5f);
+        animator.SetBool("isSliding", false);
+        controller.center = new Vector3(0, 0, 0);
+        controller.height = 2;
     }
     private void OnTriggerEnter(Collider collision)
     {
@@ -99,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
             if (!hasDino)
             {
                 PlayerManager.gameOver = true;
+                animator.SetBool("isGameOver", true);
             }
             else
             {

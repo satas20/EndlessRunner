@@ -23,11 +23,11 @@ public class MachineObsticleScript : MonoBehaviour
     IEnumerator ExampleCoroutine()
     {
         while (true) {
-            kanca.transform.DORotate(new Vector3(-90, 0, -90), 1);
+            kanca.transform.DORotate(new Vector3(-90, 0,0), 1);
 
             //yield on a new YieldInstruction that waits for 5 seconds.
             yield return new WaitForSeconds(5);
-            kanca.transform.DORotate(new Vector3(-90, 0, 0), 0.5f);
+            kanca.transform.DORotate(new Vector3(-90, 0, 90), 0.5f);
             yield return new WaitForSeconds(2);
         }
         
