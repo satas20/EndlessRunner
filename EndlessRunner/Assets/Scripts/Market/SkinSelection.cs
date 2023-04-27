@@ -16,7 +16,7 @@ public class SkinSelection : MonoBehaviour
 
     [Header("Skin Attributes")]
     [SerializeField] private int[] skinPrices;
-    private int currentCar;
+    private int currentSkin;
 
     [Header("Sound")]
     [SerializeField] private AudioClip purchase;
@@ -25,8 +25,8 @@ public class SkinSelection : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
-        currentCar = SaveManager.instance.currentCar;
-        SelectCar(currentCar);
+        currentSkin = SaveManager.instance.currentSkin;
+        SelectCar(currentSkin);
     }
 
     private void SelectCar(int _index)
@@ -39,7 +39,7 @@ public class SkinSelection : MonoBehaviour
     private void UpdateUI()
     {
         //If current car unlocked show the play button
-        if (SaveManager.instance.carsUnlocked[currentCar])
+        if (SaveManager.instance.carsUnlocked[currentSkin])
         {
             play.gameObject.SetActive(true);
             buy.gameObject.SetActive(false);
@@ -49,7 +49,7 @@ public class SkinSelection : MonoBehaviour
         {
             play.gameObject.SetActive(false);
             buy.gameObject.SetActive(true);
-            priceText.text = skinPrices[currentCar] + "$";
+            priceText.text = skinPrices[currentSkin] + "$";
         }
     }
 
@@ -57,26 +57,26 @@ public class SkinSelection : MonoBehaviour
     {
         //Check if we have enough money
         if (buy.gameObject.activeInHierarchy)
-            buy.interactable = (SaveManager.instance.money >= skinPrices[currentCar]);
+            buy.interactable = (SaveManager.instance.money >= skinPrices[currentSkin]);
     }
 
     public void ChangeCar(int _change)
     {
-        currentCar += _change;
+        currentSkin += _change;
 
-        if (currentCar > transform.childCount - 1)
-            currentCar = 0;
-        else if (currentCar < 0)
-            currentCar = transform.childCount - 1;
+        if (currentSkin > transform.childCount - 1)
+            currentSkin = 0;
+        else if (currentSkin < 0)
+            currentSkin = transform.childCount - 1;
 
-        SaveManager.instance.currentCar = currentCar;
+        SaveManager.instance.currentSkin = currentSkin;
         SaveManager.instance.Save();
-        SelectCar(currentCar);
+        SelectCar(currentSkin);
     }
     public void BuyCar()
     {
-        SaveManager.instance.money -= skinPrices[currentCar];
-        SaveManager.instance.carsUnlocked[currentCar] = true;
+        SaveManager.instance.money -= skinPrices[currentSkin];
+        SaveManager.instance.carsUnlocked[currentSkin] = true;
         SaveManager.instance.Save();
         source.PlayOneShot(purchase);
         UpdateUI();

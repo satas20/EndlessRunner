@@ -9,7 +9,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager instance { get; private set; }
 
     //What we want to save
-    public int currentCar;
+    public int currentSkin;
     public int money;
     public bool[] carsUnlocked = new bool[6] { true, false, false, false, false, false };
 
@@ -33,7 +33,7 @@ public class SaveManager : MonoBehaviour
             PlayerData_Storage data = (PlayerData_Storage)bf.Deserialize(file);
 
             money = data.money;
-            currentCar = data.currentCar;
+            currentSkin = data.currentSkin;
             carsUnlocked = data.carsUnlocked;
 
             if (data.carsUnlocked == null)
@@ -50,7 +50,7 @@ public class SaveManager : MonoBehaviour
         PlayerData_Storage data = new PlayerData_Storage();
 
         data.money = money;
-        data.currentCar = currentCar;
+        data.currentSkin = currentSkin;
         data.carsUnlocked = carsUnlocked;
 
         bf.Serialize(file, data);
@@ -61,7 +61,7 @@ public class SaveManager : MonoBehaviour
 [Serializable]
 class PlayerData_Storage
 {
-    public int currentCar;
+    public int currentSkin;
     public int money;
     public bool[] carsUnlocked;
 }
