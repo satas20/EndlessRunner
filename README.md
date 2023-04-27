@@ -26,9 +26,9 @@ The Market scene is a shop system template for buying and changing skins and pow
 
 ## Preview
 <p align="center">
-  <img src="Media/SS3.png" width="300">
-  <img src="Media/SS1.png" width="300">
-  <img src="Media/SS2.png" width="300">
+  <img src="Media/SS3.png" width="250">
+  <img src="Media/SS1.png" width="250">
+  <img src="Media/SS2.png" width="250">
 </p>
 <p align="center">
   <img src="Media/Gif2.gif" width="900">
