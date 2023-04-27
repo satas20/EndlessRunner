@@ -1,6 +1,6 @@
 # Endless Runner Team Project
 
-I collaborated with a team consisting of a game designer and 3D artists to develop an Endless Runner game project. As the sole developer, I was responsible for programming and implementing the game mechanics. Our team used a GDD and a mind map to organize and plan the project, which can be viewed at https://atlas.mindmup.com/kaanksc/trash_run/index.html.
+I collaborated with a team consisting of a game designer and 3D artists to develop an Endless Runner game project. As the sole developer, I was responsible for programming , implementing the game mechanics and put everything together. Our team used a GDD and a mind map to organize and plan the project, which can be viewed at https://atlas.mindmup.com/kaanksc/trash_run/index.html.
 
 I contributed approximately 20 hours of work to the project, but due to my other commitments, including university and additional projects, I had to withdraw from the team.
 
